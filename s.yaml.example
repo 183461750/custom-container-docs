@@ -12,6 +12,8 @@ services:
   nocobaseService:
     component: fc
     actions:
+      pre-deploy:
+        - component: fc build --use-docker --dockerfile ./app/nocobase/Dockerfile
       post-deploy:
         - component: fc nas upload -ro app/nocobase/storage/db /mnt/auto/nocobase/storage/db
     props:
