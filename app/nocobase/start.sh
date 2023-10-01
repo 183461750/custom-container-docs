@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set +e
 
-mkdir -p /mnt/auto/nocobase/storage/db
-chown -R www-data:www-data /mnt/auto/nocobase/storage/db
+RUN mkdir -p /app/nocobase/storage/db
 
-chown -R www-data:www-data /mnt/auto/nocobase
+echo "xxx1" > /app/nocobase/storage/db/xxx1.txt
+
+mkdir -p /mnt/auto/nocobase/storage/db

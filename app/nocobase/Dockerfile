@@ -6,7 +6,8 @@ COPY . .
 RUN mkdir -p /app/nocobase/storage/db
 RUN mkdir -p /mnt/auto/nocobase/storage/db
 
-RUN chown -R www-data:www-data /mnt/auto/nocobase/storage/db
-RUN chown -R www-data:www-data /mnt/auto/nocobase
+RUN echo "xxxD1" > /app/nocobase/storage/db/xxxD1.txt
+
+RUN ln -s /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
 
 EXPOSE 80 13000
