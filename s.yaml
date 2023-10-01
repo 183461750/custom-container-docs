@@ -27,6 +27,12 @@ services:
         caPort: 13000
         customContainerConfig:
           image: registry.cn-hangzhou.aliyuncs.com/fa/nocobase:v1-fa
+        customRuntimeConfig:
+          command:
+            - bash
+          args:
+            - '-c'
+            - '/app/nocobase/start.sh'
       triggers:
         - name: httpTrigger
           type: http
