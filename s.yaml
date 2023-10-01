@@ -15,15 +15,15 @@ services:
     component: fc
     actions:
       pre-deploy:
-        - component: fc build --use-docker --dockerfile ./app/nocobase/Dockerfile
+        - component: fc build --use-docker --dockerfile ./src/Dockerfile
       # post-deploy:
-      #   - component: fc nas upload -ro /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
+      #   - component: fc nas upload -ro /src/storage/db /mnt/auto/nocobase/storage/db
     props:
       region: ${vars.region}
       service: ${vars.service}
       function:
         name: "nocobaseFc"
-        codeUri: './app/nocobase'
+        codeUri: './src'
         runtime: custom-container
         timeout: 60
         memorySize: 512
