@@ -31,11 +31,8 @@ services:
         caPort: 13000
         customContainerConfig:
           image: "registry.${vars.region}.aliyuncs.com/${vars.image_namespace}/${vars.image_name}"
-          command:
-            - bash
-          args:
-            - '-c'
-            - '/app/nocobase/start.sh'
+          command: '["bash"]'
+          args: '["-c", "/app/nocobase/start.sh"]'
       triggers:
         - name: httpTrigger
           type: http
