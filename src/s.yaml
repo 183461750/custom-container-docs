@@ -1,11 +1,11 @@
 edition: 1.0.0
 name: nocobase-app
-access: "default"
+access: "{{ access }}"
 
 vars: # 全局变量
-  region: cn-hangzhou
+  region: "{{ region }}"
   service:
-    name: "nocobaseService"
+    name: "{{ serviceName }}"
     nasConfig: auto
 
 services:
@@ -13,28 +13,22 @@ services:
     component: fc
     actions:
       pre-deploy:
-        - component: fc build --use-docker --dockerfile ./app/nocobase/Dockerfile
+        - component: fc build --use-docker --dockerfile ./code/Dockerfile
       post-deploy:
-        - component: fc nas upload -ro app/nocobase/storage/db /mnt/auto/nocobase/storage/db
+        - component: fc nas upload -ro ./code /mnt/auto/code
     props:
       region: ${vars.region}
       service: ${vars.service}
       function:
-        name: nocobaseFc
-        codeUri: './app/nocobase'
+        name: "{{ functionName }}"
+        codeUri: './code'
         runtime: custom-container
         timeout: 60
         memorySize: 512
         instanceConcurrency: 100
         caPort: 13000
         customContainerConfig:
-          image: registry.cn-hangzhou.aliyuncs.com/fa/nocobase:v1-fa
-        customRuntimeConfig:
-          command:
-            - bash
-          args:
-            - '-c'
-            - '/app/nocobase/start.sh'
+          image: "{{ acrRegistry }}"
       triggers:
         - name: httpTrigger
           type: http
