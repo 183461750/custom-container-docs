@@ -15,7 +15,7 @@ services:
     component: fc
     actions:
       pre-deploy:
-        - component: fc build --use-docker --dockerfile ./code/Dockerfile
+        - component: fc build --use-docker --dockerfile ./app/nocobase/Dockerfile
       post-deploy:
         - component: fc nas upload -ro ./app/nocobase/storage/db /mnt/auto/nocobase/storage/db
     props:
@@ -23,7 +23,7 @@ services:
       service: ${vars.service}
       function:
         name: "nocobaseFc"
-        codeUri: './code'
+        codeUri: './app/nocobase'
         runtime: custom-container
         timeout: 60
         memorySize: 512
