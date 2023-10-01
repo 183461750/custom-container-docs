@@ -13,7 +13,7 @@ services:
     component: fc
     actions:
       post-deploy:
-        - component: fc nas upload -ro /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
+        - component: fc nas upload -ro app/nocobase/storage/db /mnt/auto/nocobase/storage/db
     props:
       region: ${vars.region}
       service: ${vars.service}
