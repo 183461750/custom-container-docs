@@ -1,11 +1,13 @@
 edition: 1.0.0
 name: nocobase-app
-access: "{{ access }}"
+access: "default"
 
 vars: # 全局变量
-  region: "{{ region }}"
+  region: "cn-hangzhou"
+  image_namespace: "fa"
+  image_name: "nocobase:v1-fa"
   service:
-    name: "{{ serviceName }}"
+    name: "nocobaseService"
     nasConfig: auto
 
 services:
@@ -20,7 +22,7 @@ services:
       region: ${vars.region}
       service: ${vars.service}
       function:
-        name: "{{ functionName }}"
+        name: "nocobaseFc"
         codeUri: './code'
         runtime: custom-container
         timeout: 60
@@ -28,7 +30,13 @@ services:
         instanceConcurrency: 100
         caPort: 13000
         customContainerConfig:
-          image: "{{ acrRegistry }}"
+          image: "registry.${vars.region}.aliyuncs.com/${vars.image_namespace}/${vars.image_name}"
+        customRuntimeConfig:
+          command:
+            - bash
+          args:
+            - '-c'
+            - '/code/start.sh'
       triggers:
         - name: httpTrigger
           type: http
