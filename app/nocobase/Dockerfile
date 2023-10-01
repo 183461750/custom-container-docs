@@ -3,11 +3,9 @@ ARG LOCAL_STORAGE_BASE_URL=/storage/uploads
 
 COPY . .
 
-RUN mkdir -p /app/nocobase/storage/db
-RUN mkdir -p /mnt/auto/nocobase/storage/db
-
-RUN echo "xxxD1" > /app/nocobase/storage/db/xxxD1.txt
-
-RUN ln -s /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
+RUN mkdir -p /app/nocobase/storage/db \
+  && mkdir -p /mnt/auto/nocobase/storage/db \
+  && echo "xxxD1" > /app/nocobase/storage/db/xxxD1.txt \
+  && ln -s /mnt/auto/nocobase/storage/db /app/nocobase/storage/db
 
 EXPOSE 80 13000
