@@ -16,8 +16,8 @@ services:
     actions:
       pre-deploy:
         - component: fc build --use-docker --dockerfile ./app/nocobase/Dockerfile
-      post-deploy:
-        - component: fc nas upload -ro /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
+      # post-deploy:
+      #   - component: fc nas upload -ro /app/nocobase/storage/db /mnt/auto/nocobase/storage/db
     props:
       region: ${vars.region}
       service: ${vars.service}
@@ -31,12 +31,11 @@ services:
         caPort: 13000
         customContainerConfig:
           image: "registry.${vars.region}.aliyuncs.com/${vars.image_namespace}/${vars.image_name}"
-        customRuntimeConfig:
           command:
             - bash
           args:
             - '-c'
-            - './app/nocobase/start.sh'
+            - '/app/nocobase/start.sh'
       triggers:
         - name: httpTrigger
           type: http
